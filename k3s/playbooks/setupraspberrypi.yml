@@ -1,0 +1,29 @@
+---
+
+- name: Raspian Setup IP Tables, cgroup memories
+  hosts: k3snodes,k3smaster
+  tasks:
+    - name: Activating cgroup support
+      ansible.builtin.lineinfile:
+        path: /boot/cmdline.txt
+        regexp: '^((?!.*\bcgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory\b).*)$'
+        line: '\1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory'
+        backrefs: true
+
+    - name: Flush iptables before changing to iptables-legacy
+      ansible.builtin.iptables:
+        flush: true
+      changed_when: false
+
+    - name: Update alternatives for iptables legacy
+      ansible.builtin.command:
+        cmd: "update-alternatives --set iptables /usr/sbin/iptables-legacy"
+      changed_when: false
+
+    - name: Configure to iptables legacy
+      ansible.builtin.command:
+        cmd: "update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy"
+      changed_when: false
+
+    - name: Rebooting
+      ansible.builtin.reboot:
