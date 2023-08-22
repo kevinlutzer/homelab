@@ -1,0 +1,20 @@
+---
+
+- name: Install K3S For the Master Node
+  hosts: k3smaster
+  tasks:
+    - name: CURL the K3S bin
+      ansible.builtin.get_url:
+        url: "https://get.k3s.io"
+        dest: "/tmp/k3s"
+        owner: root
+        group: root
+        mode: 755
+      changed_when: false
+
+    - name: Install K3S from bin
+      ansible.builtin.shell:
+        cmd: "/tmp/k3s"
+      environment:
+        K3S_KUBECONFIG_MODE: "644"
+      changed_when: false

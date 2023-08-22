@@ -8,3 +8,4 @@
 1. Reboot the raspberry pi
 1. Run the `playbooks/updatepackages.yml` playbook. This will do a dist-upgrade and update the package registry
 1. Run the `playbooks/setupraspberrypi.yml` playbook. That will update the cgroup memory config, iptables and other k3s specific requirements
+1. Copy the kubectl config file from the k3s master to your working machine: `scp root@master-ip:/etc/rancher/k3s/k3s.yaml ~/.kube/config`.

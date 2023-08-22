@@ -1,0 +1,40 @@
+---
+
+- name: Install K3S For the Master Node
+  hosts: k3smaster,k3snodes
+  tasks:
+
+    - name: CURL the K3S bin
+      ansible.builtin.get_url:
+        url: "https://get.k3s.io"
+        dest: "/tmp/k3s"
+        owner: root
+        group: root
+        mode: 755
+      changed_when: false
+      when: "'k3snodes' in {{group_names}}"
+
+    - name: Grab the node token for the master
+      ansible.builtin.shell:
+        cmd: "cat /var/lib/rancher/k3s/server/node-token"
+      when: "'k3smaster' in {{group_names}}"
+      register: command_output
+
+    - name: Set host fact with registered variable value
+      ansible.builtin.set_fact:
+        k3s_token: "{{ command_output.stdout }}"
+      when: "'k3smaster' in {{group_names}}"
+      run_once: true
+
+    - name: Print captured output
+      ansible.builtin.debug:
+        var: k3s_token
+
+    - name: Install K3S
+      ansible.builtin.shell:
+        cmd: "/tmp/k3s"
+      environment:
+        K3S_TOKEN: "{{k3s_token}}"
+        K3S_URL: "https://192.168.1.200:6443" # hardcoded hostname @TODO use a var instead here
+        K3S_NODE_NAME: "$(hostname)"
+      when: "'k3snodes' in {{group_names}}"
