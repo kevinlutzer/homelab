@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: pihole
+  name: pihole-local-etc-volume
+  labels:
+    directory: etc
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local
+  local:
+    path: /home/node/pihole/etc
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - k3snode1
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: pihole
+  name: pihole-local-etc-claim
+spec:
+  storageClassName: local
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  selector:
+    matchLabels:
+      directory: etc
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pihole-local-dnsmasq-volume
+  namespace: pihole
+  labels:
+    directory: dnsmasq.d
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local
+  local:
+    path: /home/node/pihole/dnsmasq
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - k3snode1
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pihole-local-dnsmasq-claim
+  namespace: pihole
+spec:
+  storageClassName: local
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+  selector:
+    matchLabels:
+      directory: dnsmasq.d
