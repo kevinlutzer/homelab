@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: ntfy-local-etc-volume
+  name: ntfy-local-data-volume
   namespace: ntfy
   labels:
-    directory: etc
+    directory: data
 spec:
   capacity:
     storage: 1Gi
@@ -13,7 +13,7 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   storageClassName: ntfy-local
   local:
-    path: /home/node/ntfy/etc
+    path: /home/node/ntfy/data
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -27,7 +27,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   namespace: ntfy
-  name: ntfy-local-etc-claim
+  name: ntfy-local-data-claim
 spec:
   storageClassName: ntfy-local
   accessModes:
@@ -37,4 +37,4 @@ spec:
       storage: 1Gi
   selector:
     matchLabels:
-      directory: etc
+      directory: data

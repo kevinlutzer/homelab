@@ -24,13 +24,18 @@ spec:
         - containerPort: 80
           name: http
         volumeMounts:
+        - name: ntfy-local-data-volume
+          mountPath: "/data/ntfy"
         - name: ntfy-local-etc-volume
-          mountPath: "/etc/pihole"
+          mountPath: "/etc/ntfy"
           readOnly: true
       volumes:
-        - name: ntfy-local-etc-volume
+        - name: ntfy-local-data-volume
           persistentVolumeClaim:
-            claimName: ntfy-local-etc-claim
-        - name: config
+            claimName: ntfy-local-data-claim
+        - name: ntfy-local-etc-volume
           configMap:
             name: ntfy
+            items:
+            - key: server.yml
+              path: server.yml

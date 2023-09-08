@@ -6,8 +6,6 @@ metadata:
   namespace: ntfy
 data:
   server.yml: |
-    base-url: "https://192.168.4.104"
+    base-url: "https://ntfy.homelab.kevinlutzer.ca"
     upstream-base-url: "https://ntfy.sh"
-    log-level: info
-    log-format: text
-    log-file: /etc/pihole/ntfy.log
+    log-level: debug

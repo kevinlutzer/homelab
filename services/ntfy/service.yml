@@ -4,10 +4,8 @@ metadata:
   namespace: ntfy
   name: ntfy
 spec:
-  type: LoadBalancer
   selector:
     app: ntfy
   ports:
   - port: 80
     targetPort: 80
-  loadBalancerIP: 192.168.4.104
