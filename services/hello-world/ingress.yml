@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-world-ingress
+  namespace: hello-world
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - helloworld.homelab.kevinlutzer.ca
+    secretName: helloworld-kevinlutzer-ca-tls
+  rules:
+  - host: helloworld.homelab.kevinlutzer.ca
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: hello-world
+              port:
+                number: 80

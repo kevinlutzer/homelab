@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ntfy
+  namespace: ntfy
+spec:
+  selector:
+    matchLabels:
+      app: ntfy
+  template:
+    metadata:
+      labels:
+        app: ntfy
+    spec:
+      containers:
+      - name: ntfy
+        image: binwiederhier/ntfy
+        args: ["serve"]
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+          name: http
+        volumeMounts:
+        - name: ntfy-local-etc-volume
+          mountPath: "/etc/pihole"
+          readOnly: true
+      volumes:
+        - name: ntfy-local-etc-volume
+          persistentVolumeClaim:
+            claimName: ntfy-local-etc-claim
+        - name: config
+          configMap:
+            name: ntfy

@@ -1,0 +1,13 @@
+# Template: https://github.com/binwiederhier/ntfy/blob/main/server/server.yml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ntfy
+  namespace: ntfy
+data:
+  server.yml: |
+    base-url: "https://192.168.4.104"
+    upstream-base-url: "https://ntfy.sh"
+    log-level: info
+    log-format: text
+    log-file: /etc/pihole/ntfy.log
