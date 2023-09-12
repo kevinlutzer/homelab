@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: ntfy
-  name: ntfy
+  namespace: heimdall
+  name: heimdall
 spec:
   selector:
-    app: ntfy
+    app: heimdall
   ports:
     - name: http
       port: 80

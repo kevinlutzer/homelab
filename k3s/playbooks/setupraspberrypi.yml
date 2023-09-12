@@ -1,29 +1,40 @@
 ---
-
-- name: Raspian Setup IP Tables, cgroup memories
-  hosts: k3snodes,k3smaster
+- name: Prepare nodes for k3s install
+  hosts: k3snodes
   tasks:
+    - name: Upgrade the OS (apt-get dist-upgrade)
+      ansible.builtin.apt:
+        upgrade: dist
+
+    - name: Run the equivalent of "apt-get update" as a separate step
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install CSI for Longhorn
+      ansible.builtin.apt:
+        name: "open-iscsi"
+        state: "latest"
+
+    - name: Disable SWAP
+      ansible.builtin.shell:
+        cmd: "sudo dphys-swapfile swapoff"
+
+    - name: Update Swap Size to 8GB
+      ansible.builtin.lineinfile:
+        path: /etc/dphys-swapfile
+        regexp: '^(CONF_SWAPSIZE=100)$' # by default for the newest rasp
+        line: 'CONF_SWAPSIZE=8192'
+
+    - name: Enable SWAP
+      ansible.builtin.shell:
+        cmd: "sudo dphys-swapfile swapon"
+
     - name: Activating cgroup support
       ansible.builtin.lineinfile:
         path: /boot/cmdline.txt
         regexp: '^((?!.*\bcgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory\b).*)$'
         line: '\1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory'
         backrefs: true
-      changed_when: false
-
-    - name: Flush iptables before changing to iptables-legacy
-      ansible.builtin.iptables:
-        flush: true
-      changed_when: false
-
-    - name: Update alternatives for iptables legacy
-      ansible.builtin.command:
-        cmd: "update-alternatives --set iptables /usr/sbin/iptables-legacy"
-      changed_when: false
-
-    - name: Configure to iptables legacy
-      ansible.builtin.command:
-        cmd: "update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy"
       changed_when: false
 
     - name: Rebooting

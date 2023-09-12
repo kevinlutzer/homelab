@@ -1,24 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: hello-world
-  name: hello-world
+  namespace: heimdall
+  name: heimdall
   labels:
-    app: hello-world
+    app: heimdall
 spec:
   selector:
     matchLabels:
-      app: hello-world
+      app: heimdall
   replicas: 1
   template:
     metadata:
       labels:
-        app: hello-world
+        app: heimdall
     spec:
       containers:
-      - name: hello-world
+      - name: heimdall
         imagePullPolicy: Always
-        image: klutzer/hello-world:latest
+        image: lscr.io/linuxserver/heimdall:latest
+        env:
+        - name: TZ
+          value: "Etc/UTC"
         ports:
         - containerPort: 80
         resources:
@@ -27,4 +30,4 @@ spec:
             cpu: "128m"
           requests:
             memory: 64Mi
-            cpu: "80m"
+            cpu: "64m"

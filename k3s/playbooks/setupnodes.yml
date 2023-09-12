@@ -1,26 +1,23 @@
 ---
 
-- name: Install K3S For the Master Node
+- name: Install K3S For the Worker Nodes
   hosts: k3snodes
+  gather_facts: false
+  vars_prompt:
+    - name: k3s_token
+      prompt: Enter the k3s token key from your master node (sudo cat /var/lib/rancher/k3s/server/node-token) 
   tasks:
-
     - name: CURL the K3S bin
       ansible.builtin.get_url:
         url: "https://get.k3s.io"
         dest: "/tmp/k3s"
         mode: 755
-      changed_when: false
 
     # get the k3s master token from the master node first -> cat /var/lib/rancher/k3s/server/node-token
     # change the k3s url to use the master node's ip
     - name: Install K3S
       ansible.builtin.shell:
-        cmd: "/tmp/k3s"
+        cmd: "K3S_NODE_NAME=$(hostname) bash /tmp/k3s"
       environment:
-        K3S_TOKEN: "token"
+        K3S_TOKEN: "{{k3s_token}}"
         K3S_URL: "https://192.168.4.200:6443" # hardcoded hostname @TODO use a var instead here
-        K3S_NODE_NAME: "$(hostname)"
-
-    - name: Rebooting
-      ansible.builtin.reboot:
-      changed_when: false

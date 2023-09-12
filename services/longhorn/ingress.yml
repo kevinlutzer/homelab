@@ -1,0 +1,24 @@
+# Ingress for the web ui
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: longhorn-frontend-ingress
+  namespace: longhorn-system
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - longhorn.homelab.kevinlutzer.ca
+    secretName: longhorn-homelab-kevinlutzer-ca-tls
+  rules:
+  - host: longhorn.homelab.kevinlutzer.ca
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: longhorn-frontend
+              port:
+                number: 80
+                

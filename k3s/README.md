@@ -9,3 +9,6 @@
 1. Run the `playbooks/updatepackages.yml` playbook. This will do a dist-upgrade and update the package registry
 1. Run the `playbooks/setupraspberrypi.yml` playbook. That will update the cgroup memory config, iptables and other k3s specific requirements
 1. Copy the kubectl config file from the k3s master to your working machine: `scp root@master-ip:/etc/rancher/k3s/k3s.yaml ~/.kube/config`.
+1. On the master node, run `curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE="644" INSTALL_K3S_EXEC="--disable=servicelb,traefik --allow-privileged=true" sh -` to install k3s.
+1. On the worker nodes, run `curl`
+    

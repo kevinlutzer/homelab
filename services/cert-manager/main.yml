@@ -5336,7 +5336,7 @@ spec:
           image: "quay.io/jetstack/cert-manager-cainjector:v1.12.0"
           imagePullPolicy: IfNotPresent
           args:
-          - --v=5
+          - --v=2
           - --leader-election-namespace=kube-system
           env:
           - name: POD_NAMESPACE
@@ -5395,7 +5395,7 @@ spec:
           args:
           - --dns01-recursive-nameservers-only
           - --dns01-recursive-nameservers=8.8.8.8:53,1.1.1.1:53
-          - --v=5
+          - --v=2
           - --cluster-resource-namespace=$(POD_NAMESPACE)
           - --leader-election-namespace=kube-system
           - --acme-http01-solver-image=quay.io/jetstack/cert-manager-acmesolver:v1.12.0
@@ -5458,7 +5458,7 @@ spec:
           image: "quay.io/jetstack/cert-manager-webhook:v1.12.0"
           imagePullPolicy: IfNotPresent
           args:
-          - --v=5
+          - --v=2
           - --secure-port=10250
           - --dynamic-serving-ca-secret-namespace=$(POD_NAMESPACE)
           - --dynamic-serving-ca-secret-name=cert-manager-webhook-ca

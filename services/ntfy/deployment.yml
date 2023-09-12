@@ -24,15 +24,15 @@ spec:
         - containerPort: 80
           name: http
         volumeMounts:
-        - name: ntfy-local-data-volume
+        - name: ntfy-local-data-volume2
           mountPath: "/data/ntfy"
         - name: ntfy-local-etc-volume
           mountPath: "/etc/ntfy"
           readOnly: true
       volumes:
-        - name: ntfy-local-data-volume
+        - name: ntfy-local-data-volume2
           persistentVolumeClaim:
-            claimName: ntfy-local-data-claim
+            claimName: ntfy-local-data-claim2
         - name: ntfy-local-etc-volume
           configMap:
             name: ntfy

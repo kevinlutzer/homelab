@@ -1,40 +1,13 @@
 apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: ntfy-local-data-volume
-  namespace: ntfy
-  labels:
-    directory: data
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-  - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Delete
-  storageClassName: ntfy-local
-  local:
-    path: /home/node/ntfy/data
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - k3snode1
----
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   namespace: ntfy
-  name: ntfy-local-data-claim
+  name: ntfy-local-data-claim2
 spec:
-  storageClassName: ntfy-local
+  storageClassName: longhorn
+  volumeName: ntfy-local-data-volume
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
-  selector:
-    matchLabels:
-      directory: data
+      storage: 4Gi
