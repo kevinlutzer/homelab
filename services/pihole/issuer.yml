@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: ca-issuer
+  namespace: pihole
+spec:
+  acme:
+    email: kevinlutzer@proton.me
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: issuer-key
+    solvers:
+    - dns01:
+        cloudflare:
+          email: kevinlutzer@proton.me
+          apiTokenSecretRef:
+            name: cloudflare-api-key-secret
+            key: api-key
