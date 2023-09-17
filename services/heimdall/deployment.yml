@@ -15,6 +15,10 @@ spec:
       labels:
         app: heimdall
     spec:
+      volumes:
+      - name: heimdall-pvc
+        persistentVolumeClaim:
+          claimName: heimdall-local-data-pvc
       containers:
       - name: heimdall
         imagePullPolicy: Always
@@ -26,8 +30,12 @@ spec:
         - containerPort: 80
         resources:
           limits:
-            memory: 128Mi
-            cpu: "128m"
+            memory: 512Mi
+            cpu: "512m"
           requests:
-            memory: 64Mi
-            cpu: "64m"
+            memory: 256Mi
+            cpu: "256m"
+        volumeMounts:                      
+         - mountPath: /config              
+           name: heimdall-pvc
+           subPath: config

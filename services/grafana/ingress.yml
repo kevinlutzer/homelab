@@ -1,23 +1,23 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: pihole-ingress
-  namespace: pihole
+  name: grafana-ingress
+  namespace: grafana
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - pihole.homelab.kevinlutzer.ca
-    secretName: pihole-kevinlutzer-ca-tls
+    - grafana.homelab.kevinlutzer.ca
+    secretName: grafana-kevinlutzer-ca-tls
   rules:
-  - host: pihole.homelab.kevinlutzer.ca
+  - host: grafana.homelab.kevinlutzer.ca
     http:
       paths:
         - path: /
           pathType: Prefix
           backend:
             service:
-              name: pihole-frontend
+              name: grafana
               port:
                 number: 80
                 

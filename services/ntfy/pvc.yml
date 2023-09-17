@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pihole-local-data-pvc
-  namespace: pihole
+  name: ntfy-local-data-pvc
+  namespace: ntfy
 spec:
   accessModes:
     - ReadWriteOnce
   storageClassName: longhorn
   resources:
     requests:
-      storage: 2Gi
+      storage: 10Gi

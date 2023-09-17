@@ -1,8 +1,7 @@
-# Ingress for the web ui
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: longhorn-frontend-ingress
+  name: longhron-ingress
   namespace: longhorn-system
 spec:
   ingressClassName: nginx

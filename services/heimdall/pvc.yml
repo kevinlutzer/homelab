@@ -2,8 +2,8 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pihole-local-data-pvc
-  namespace: pihole
+  name: heimdall-local-data-pvc
+  namespace: heimdall
 spec:
   accessModes:
     - ReadWriteOnce

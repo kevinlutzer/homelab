@@ -4,5 +4,5 @@ data:
     address=/foo.bar/192.168.4.160
 kind: ConfigMap
 metadata:
-  name: pihole-dnsmasq
+  name: pihole-custom-dnsmasq
   namespace: pihole

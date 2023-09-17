@@ -1,8 +1,8 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: heimdall-kevinlutzer-ca-tls
-  namespace: heimdall
+  name: pihole-kevinlutzer-ca-tls
+  namespace: pihole
 spec:
   duration: 2160h # 90d
   renewBefore: 360h # 15d
@@ -14,8 +14,8 @@ spec:
     encoding: PKCS1
     size: 2048
   dnsNames:
-    - heimdall.homelab.kevinlutzer.ca
-  secretName: heimdall-kevinlutzer-ca-tls
+    - pihole.homelab.kevinlutzer.ca
+  secretName: pihole-kevinlutzer-ca-tls
   issuerRef:
     name: ca-issuer
     kind: Issuer

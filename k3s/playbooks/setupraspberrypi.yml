@@ -1,29 +1,29 @@
 ---
 - name: Prepare nodes for k3s install
-  hosts: k3snodes
+  hosts: k3snodes,k3smaster
   tasks:
     - name: Upgrade the OS (apt-get dist-upgrade)
       ansible.builtin.apt:
         upgrade: dist
-
-    - name: Run the equivalent of "apt-get update" as a separate step
-      ansible.builtin.apt:
         update_cache: true
 
-    - name: Install CSI for Longhorn
+    - name: Install Packages
       ansible.builtin.apt:
-        name: "open-iscsi"
+        name:
+          - "nfs-common"
+          - "open-iscsi"
+          - "util-linux"
         state: "latest"
 
     - name: Disable SWAP
       ansible.builtin.shell:
         cmd: "sudo dphys-swapfile swapoff"
 
-    - name: Update Swap Size to 8GB
+    - name: Update Swap Size to 4GB
       ansible.builtin.lineinfile:
         path: /etc/dphys-swapfile
         regexp: '^(CONF_SWAPSIZE=100)$' # by default for the newest rasp
-        line: 'CONF_SWAPSIZE=8192'
+        line: 'CONF_SWAPSIZE=4096'
 
     - name: Enable SWAP
       ansible.builtin.shell:
@@ -32,10 +32,9 @@
     - name: Activating cgroup support
       ansible.builtin.lineinfile:
         path: /boot/cmdline.txt
-        regexp: '^((?!.*\bcgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory\b).*)$'
-        line: '\1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory'
+        regexp: '^((?!.*\bcgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory usb-storage.quirks=7825:a2a4:u\b).*)$'
+        line: '\1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory usb-storage.quirks=7825:a2a4:u'
         backrefs: true
-      changed_when: false
 
     - name: Rebooting
       ansible.builtin.reboot:
