@@ -1,6 +1,6 @@
 ---
 - name: Prepare nodes for k3s install
-  hosts: k3snodes,k3smaster
+  hosts: 192.168.4.202
   tasks:
     - name: Upgrade the OS (apt-get dist-upgrade)
       ansible.builtin.apt:

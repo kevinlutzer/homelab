@@ -45,13 +45,16 @@ spec:
               port: 3000
             timeoutSeconds: 1
           resources:
+            limits:
+              cpu: 256m
+              memory: 256Mi
             requests:
-              cpu: 250m
-              memory: 750Mi
+              cpu: 256m
+              memory: 128Mi
           volumeMounts:
             - mountPath: /var/lib/grafana
-              name: grafana-pv
+              name: grafana-data-pvc
       volumes:
-        - name: grafana-pv
+        - name: grafana-data-pvc
           persistentVolumeClaim:
-            claimName: grafana-pvc
+            claimName: grafana-data-pvc

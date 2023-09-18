@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   name: ca-issuer
-  namespace: hello-world
+  namespace: grafana
 spec:
   acme:
     email: kevinlutzer@proton.me
