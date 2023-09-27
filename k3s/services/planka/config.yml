@@ -1,0 +1,18 @@
+# Create ConfigMap postgres-secret for the postgres app
+# Define default database name, user, and password
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: planka-config
+  namespace: planka
+  labels:
+    app: planka
+data:
+  BASE_URL: https://planka.homelab.kevinlutzer.ca
+  TRUST_PROXY: "0"
+
+  # Can be removed after installation
+  DEFAULT_ADMIN_EMAIL: kevinlutzer@proton.me # Do not remove if you want to prevent this user from being edited/deleted
+  DEFAULT_ADMIN_PASSWORD: password
+  DEFAULT_ADMIN_NAME: Kevin Lutzer
+  DEFAULT_ADMIN_USERNAME: kevinlutzer

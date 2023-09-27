@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: planka
+  name: planka
+spec:
+  selector:
+    app: planka
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 1337

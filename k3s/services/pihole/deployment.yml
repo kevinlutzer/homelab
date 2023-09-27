@@ -5,7 +5,7 @@ metadata:
   namespace: pihole
 spec:
   progressDeadlineSeconds: 600
-  replicas: 1
+  replicas: 2
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -20,6 +20,8 @@ spec:
       labels:
         app: pihole
     spec:
+      securityContext:
+        fsGroup: 1000
       containers:
       - env:
         - name: ServerIP
@@ -30,7 +32,7 @@ spec:
               key: password
               name: pihole-website-password
         image: pihole/pihole
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: pihole
         ports:
         - containerPort: 80

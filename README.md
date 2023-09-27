@@ -82,3 +82,6 @@ helm install longhorn longhorn/longhorn --namespace longhorn-system --create-nam
 ```
 
 The rest of longhorn (service/certs) can be managed with the manifests in the longhorn directory.
+
+## postgres Notes:
+

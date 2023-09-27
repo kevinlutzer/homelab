@@ -1,25 +1,23 @@
-
-
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: prometheus-ingress
-  namespace: monitoring
+  name: planka-ingress
+  namespace: planka
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - prometheus.homelab.kevinlutzer.ca
-    secretName: prometheus-homelab-kevinlutzer-ca-tls
+    - planka.homelab.kevinlutzer.ca
+    secretName: planka-homelab-kevinlutzer-ca-tls
   rules:
-  - host: prometheus.homelab.kevinlutzer.ca
+  - host: planka.homelab.kevinlutzer.ca
     http:
       paths:
         - path: /
           pathType: Prefix
           backend:
             service:
-              name: prometheus-server
+              name: planka
               port:
                 number: 80
                 

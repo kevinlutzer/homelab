@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment # Create a deployment
+metadata:
+  name: postgres # Set the name of the deployment
+  namespace: postgres # Set the name of the deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:12-alpine
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432 # Exposing the container port 5432 for PostgreSQL client connections.
+          env: 
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-password
+                  key: password
+          envFrom:
+            - configMapRef:
+                name: postgres-config # Using the ConfigMap postgres-secret
+          volumeMounts:
+            - mountPath: /var/lib/postgresql
+              name: postgresdata
+      volumes:
+        - name: postgresdata
+          persistentVolumeClaim:
+            claimName: postgres-local-data-pvc

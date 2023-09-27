@@ -1,7 +1,7 @@
 ---
 
 - name: Install K3S For the Worker Nodes
-  hosts: 192.168.4.202
+  hosts: k3snodes
   gather_facts: false
   vars_prompt:
     - name: k3s_token

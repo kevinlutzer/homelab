@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: prometheus-local-data-pvc
-  namespace: monitoring
+  name: postgres-local-data-pvc
+  namespace: postgres
 spec:
   accessModes:
     - ReadWriteOnce
   storageClassName: longhorn
   resources:
     requests:
-      storage: 10Gi
+      storage: 30Gi

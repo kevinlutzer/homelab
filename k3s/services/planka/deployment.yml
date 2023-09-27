@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: planka
+  namespace: planka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: planka
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: planka
+    spec:
+      containers:
+      - env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: dbconn
+              name: planka-secret
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: secret_key
+              name: planka-secret
+        envFrom:
+        - configMapRef:
+            name: planka-config
+        image: ghcr.io/plankanban/planka:latest
+        imagePullPolicy: IfNotPresent
+        name: planka
+        ports:
+        - containerPort: 1337
+          name: web
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 256m
+            memory: 256Mi
+          requests:
+            cpu: 128m
+            memory: 128Mi
+        volumeMounts:
+        - mountPath: /app/public/user-avatars
+          name: planka-user-avatars-pv
+        - mountPath: /app/public/project-background-images
+          name: planka-project-background-images-pv
+        - mountPath: /app/private/attachments
+          name: planka-attachments-pv
+      restartPolicy: Always
+      volumes:
+      - name: planka-user-avatars-pv
+        persistentVolumeClaim:
+          claimName: planka-user-avatars-local-data-pvc
+      - name: planka-project-background-images-pv
+        persistentVolumeClaim:
+          claimName: planka-project-background-images-local-data-pvc
+      - name: planka-attachments-pv
+        persistentVolumeClaim:
+          claimName: planka-attachments-local-data-pvc
