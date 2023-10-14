@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: home-assistant
+  name: home-assistant
+  labels:
+    app: home-assistant
+spec:
+  selector:
+    matchLabels:
+      app: home-assistant
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: home-assistant
+    spec:
+      containers:
+      - name: home-assistant
+        imagePullPolicy: Always
+        image: homeassistant/home-assistant:latest
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: 1024Mi
+            cpu: "1024m"
+          requests:
+            memory: 526Mi
+            cpu: "526m"
