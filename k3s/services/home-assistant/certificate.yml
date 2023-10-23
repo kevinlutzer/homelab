@@ -1,0 +1,22 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: home-assistant-homelab-kevinlutzer-ca-tls
+  namespace: home-assistant
+spec:
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  subject:
+    organizations:
+      - kevinlutzer
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 2048
+  dnsNames:
+    - home-assistant.homelab.kevinlutzer.ca
+  secretName: home-assistant-homelab-kevinlutzer-ca-tls
+  issuerRef:
+    name: ca-issuer
+    kind: Issuer
+    group: cert-manager.io

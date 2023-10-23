@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: speed-test
+  name: speed-test
+  labels:
+    app: speed-test
+spec:
+  selector:
+    matchLabels:
+      app: speed-test
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: speed-test
+    spec:
+      containers:
+      - name: speed-test
+        imagePullPolicy: Always
+        image: miguelndecarvalho/speedtest-exporter:latest
+        ports:
+        - containerPort: 9798
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "512m"
+          requests:
+            memory: 256Mi
+            cpu: "256m"

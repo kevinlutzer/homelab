@@ -1,1 +1,5 @@
+
+# Editor
 .vscode/**
+*.DS_Store
+*.code-workspace

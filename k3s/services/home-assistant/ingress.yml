@@ -1,25 +1,22 @@
-
-
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: prometheus
-  namespace: monitoring
+  name: home-assistant-ingress
+  namespace: home-assistant
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - prometheus.homelab.kevinlutzer.ca
-    secretName: prometheus-homelab-kevinlutzer-ca-tls
+    - home-assistant.homelab.kevinlutzer.ca
+    secretName: home-assistant-homelab-kevinlutzer-ca-tls
   rules:
-  - host: prometheus.homelab.kevinlutzer.ca
+  - host: home-assistant.homelab.kevinlutzer.ca
     http:
       paths:
         - path: /
           pathType: Prefix
           backend:
             service:
-              name: prometheus
+              name: home-assistant
               port:
                 number: 80
-                

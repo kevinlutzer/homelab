@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mosquitto
+  namespace: mosquitto
+  labels:
+    app: mosquitto
+spec:
+  selector:
+    matchLabels:
+      app: mosquitto
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mosquitto
+    spec:
+      containers:
+        - image: eclipse-mosquitto:latest
+          name: mosquitto
+          ports:
+            - containerPort: 1883
+              name: mqtt
+              protocol: tcp
+          volumeMounts:
+            - name: mosquitto-persistent-storage
+              mountPath: /mosquitto/data
+            - name: mosquitto-config
+              mountPath: /mosquitto/config/mosquitto.conf
+              subPath: mosquitto.conf
+      volumes:
+        - name: mosquitto-persistent-storage
+          persistentVolumeClaim:
+            claimName: mosquitto-local-data-pvc
+        - name: mosquitto-config
+          configMap:
+            name: mosquitto-config

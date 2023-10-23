@@ -83,5 +83,52 @@ helm install longhorn longhorn/longhorn --namespace longhorn-system --create-nam
 
 The rest of longhorn (service/certs) can be managed with the manifests in the longhorn directory.
 
-## postgres Notes:
+## Setup The IP Config For the Server
 
+``` bash
+sudo apt-get -y install net-tools network-manager
+```
+
+Edit the `/etc/netplan/50-cloud.yml` file to look like this. Change the IP address to the one you want to use.
+
+``` yaml
+network:
+    ethernets:
+        eno1:
+            dhcp4: true
+            addresses: [192.168.4.200/24]
+            nameservers:
+              addresses: [1.1.1.1,8.8.8.8,192.168.4.1]
+            routes:
+            - to: 255.255.255.0/24
+              via: 192.168.4.1
+    version: 2
+    wifis: {}
+```
+
+## Home Assistant
+
+Home assistant is running in a docker container on the k3s cluster. The config for it is in the `/config` directory which will be created as the container spins up.
+
+To use home assistant with the nginx ingress, you will need to add the cluster IP to the `trusted_proxies` list in the home assistant config, as well as enable the `x_forwarded_for` option.
+
+The config you need to add should look like: 
+
+``` yaml
+http:
+  use_x_forwarded_for: true
+  trusted_proxies: 10.42.1.3 
+```
+
+To add the config stream `sh` to stdin/stdout
+
+``` bash
+ kubectl exec --stdin --tty home-assistant-845b7cdc7d-65xkl -n home-assistant -- /bin/sh
+ /config # 
+```
+
+Install nano
+
+``` bash
+apk add nano
+```

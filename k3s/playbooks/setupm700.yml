@@ -1,0 +1,41 @@
+---
+- name: Prepare nodes for k3s install
+  hosts: k3smaster,k3snodes
+  tasks:
+    - name: Upgrade the OS (apt-get dist-upgrade)
+      ansible.builtin.apt:
+        upgrade: dist
+        update_cache: true
+
+    - name: Install Packages
+      ansible.builtin.apt:
+        name:
+          - "nfs-common"
+          - "open-iscsi"
+          - "util-linux"
+        state: "latest"
+
+    - name: Disable SWAP
+      ansible.builtin.shell:
+        cmd: "sudo dphys-swapfile swapoff"
+
+    - name: Update Swap Size to 4GB
+      ansible.builtin.lineinfile:
+        path: /etc/dphys-swapfile
+        regexp: '^(CONF_SWAPSIZE=100)$' # by default for the newest rasp
+        line: 'CONF_SWAPSIZE=4096'
+
+    - name: Enable SWAP
+      ansible.builtin.shell:
+        cmd: "sudo dphys-swapfile swapon"
+
+    - name: Activating cgroup support
+      ansible.builtin.lineinfile:
+        path: /boot/cmdline.txt
+        regexp: '^((?!.*\bcgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory usb-storage.quirks=7825:a2a4:u\b).*)$'
+        line: '\1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory usb-storage.quirks=7825:a2a4:u'
+        backrefs: true
+
+    - name: Rebooting
+      ansible.builtin.reboot:
+      changed_when: false

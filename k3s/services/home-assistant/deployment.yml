@@ -19,12 +19,19 @@ spec:
       - name: home-assistant
         imagePullPolicy: Always
         image: homeassistant/home-assistant:latest
+        volumeMounts:
+          - name: home-assistant-local-data-volume
+            mountPath: "/config"
         ports:
         - containerPort: 80
         resources:
           limits:
+            memory: 2048Mi
+            cpu: "2048"
+          requests:
             memory: 1024Mi
             cpu: "1024m"
-          requests:
-            memory: 526Mi
-            cpu: "526m"
+      volumes:
+        - name: home-assistant-local-data-volume
+          persistentVolumeClaim:
+            claimName: home-assistant-local-data-pvc
