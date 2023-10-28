@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: personal-website
+  name: personal-website
+spec:
+  type: LoadBalancer
+  selector:
+    app: personal-website
+  ports:
+    - name: tcp
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  loadBalancerIP: 192.168.4.156
