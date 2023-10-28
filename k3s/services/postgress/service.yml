@@ -13,4 +13,4 @@ spec:
       port: 5432
       targetPort: 5432
       protocol: TCP
-  loadBalancerIP: 192.168.4.158
+  loadBalancerIP: 192.168.4.157

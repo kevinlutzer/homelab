@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: personal-website
+  namespace: personal-website
+spec:
+  selector:
+    matchLabels:
+      app: personal-website
+  template:
+    metadata:
+      labels:
+        app: personal-website
+    spec:
+      imagePullSecrets:
+      - name: my-registry-secret
+      containers:
+      - name: personal-website
+        image: klutzer/personal-website
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: PORT
+          value: '8080'
+        - name: DB_HOST
+          value: '192.168.4.158'
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: postgres-password
+        - name: DB_USER
+          value: 'personalwebsite'
+        - name: PING_HOST
+          value: 'hc-ping.com/d1fb6482-4f57-4854-9716-3a376334f085'
+        - name: VERSION
+          value: '4.1.0'
