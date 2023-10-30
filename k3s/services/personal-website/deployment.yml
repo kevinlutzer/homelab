@@ -35,11 +35,14 @@ spec:
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
-              key: password
-              name: postgres-password
+              key: dbpassword
+              name: personal-website-secret
         - name: DB_USER
           value: 'personalwebsite'
         - name: PING_HOST
-          value: 'hc-ping.com/d1fb6482-4f57-4854-9716-3a376334f085'
+          valueFrom:
+            secretKeyRef:
+              key: pinguri
+              name: personal-website-secret
         - name: VERSION
           value: '4.1.0'
