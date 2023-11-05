@@ -11,4 +11,4 @@ spec:
       port: 9798
       targetPort: 9798
   type: LoadBalancer
-  loadBalancerIP: 192.168.4.158
+  loadBalancerIP: 192.168.4.155

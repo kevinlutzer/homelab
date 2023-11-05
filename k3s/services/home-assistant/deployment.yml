@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: home-assistant
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         image: homeassistant/home-assistant:latest
         volumeMounts:
           - name: home-assistant-local-data-volume

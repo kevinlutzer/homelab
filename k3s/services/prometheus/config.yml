@@ -32,10 +32,10 @@ data:
     scrape_configs:
       - job_name: 'speedtest'
         metrics_path: /metrics
-        scrape_interval: 10s
-        scrape_timeout: 60s  # running speedtest needs time to complete
+        scrape_interval: 30s
+        scrape_timeout: 20s  # running speedtest needs time to complete
         static_configs:
-          - targets: ['192.168.4.158:9798']
+          - targets: ['192.168.4.155:9798']
       - job_name: 'node-exporter'
         kubernetes_sd_configs:
           - role: endpoints
