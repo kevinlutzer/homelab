@@ -29,9 +29,10 @@ spec:
             - configMapRef:
                 name: postgres-config # Using the ConfigMap postgres-secret
           volumeMounts:
-            - mountPath: /var/lib/postgresql
+            - mountPath: /var/lib/postgresql/data
               name: postgresdata
+              subPath: postgresdata
       volumes:
         - name: postgresdata
           persistentVolumeClaim:
-            claimName: postgres-local-data-pvc
+            claimName: postgres-local-data-pvc3

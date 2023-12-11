@@ -17,7 +17,7 @@ spec:
       containers:
       - name: personal-website
         imagePullPolicy: Always
-        image: klutzer/personal-website:4.0.0
+        image: klutzer/personal-website:4.0.1
         resources:
           limits:
             memory: "128Mi"
@@ -45,4 +45,4 @@ spec:
               key: pinguri
               name: personal-website-secret
         - name: VERSION
-          value: '4.1.0'
+          value: '4.0.1'
