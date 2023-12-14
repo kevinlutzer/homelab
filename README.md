@@ -93,17 +93,17 @@ Edit the `/etc/netplan/50-cloud.yml` file to look like this. Change the IP addre
 
 ``` yaml
 network:
-    ethernets:
-        eno1:
-            dhcp4: true
-            addresses: [192.168.4.200/24]
-            nameservers:
-              addresses: [1.1.1.1,8.8.8.8,192.168.4.1]
-            routes:
-            - to: 255.255.255.0/24
-              via: 192.168.4.1
-    version: 2
-    wifis: {}
+  ethernets:
+    eno1:
+      dhcp4: true
+      addresses: [192.168.4.200/24]
+      nameservers:
+        addresses: [1.1.1.1,8.8.8.8,192.168.4.1]
+      routes:
+      - to: 255.255.255.0/24
+        via: 192.168.4.1
+  version: 2
+  wifis: {}
 ```
 
 ## Home Assistant

@@ -22,7 +22,7 @@ spec:
           ports:
             - containerPort: 1883
               name: mqtt
-              protocol: tcp
+              protocol: TCP
           volumeMounts:
             - name: mosquitto-persistent-storage
               mountPath: /mosquitto/data
