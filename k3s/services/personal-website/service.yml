@@ -13,4 +13,3 @@ spec:
       port: 8080
       targetPort: 8080
       protocol: TCP
-  loadBalancerIP: 192.168.4.156

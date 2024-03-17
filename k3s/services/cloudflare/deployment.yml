@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: cloudflared
-  replicas: 2 # You could also consider elastic scaling for this deployment
+  replicas: 1 # You could also consider elastic scaling for this deployment
   template:
     metadata:
       labels:
@@ -24,6 +24,8 @@ spec:
         # below.
         - --config
         - /etc/cloudflared/config/config.yaml
+        - --cred-file
+        - /etc/cloudflared/creds/40d92fe0-3b76-4f08-89ae-293693314512.json
         - run
         livenessProbe:
           httpGet:
@@ -44,6 +46,13 @@ spec:
         - name: creds
           mountPath: /etc/cloudflared/creds
           readOnly: true
+        # resources:
+        #   limits:
+        #     memory: 2048Mi
+        #     cpu: 2048Mi
+        #   requests:
+        #     memory: 1024Mi
+        #     cpu: 1024Mi
       volumes:
       - name: creds
         secret:

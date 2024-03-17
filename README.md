@@ -89,14 +89,14 @@ The rest of longhorn (service/certs) can be managed with the manifests in the lo
 sudo apt-get -y install net-tools network-manager
 ```
 
-Edit the `/etc/netplan/50-cloud.yml` file to look like this. Change the IP address to the one you want to use.
+Edit the `/etc/netplan/00-installer-config.yaml` file to look like this. Change the IP address to the one you want to use.
 
 ``` yaml
 network:
   ethernets:
     eno1:
       dhcp4: true
-      addresses: [192.168.4.200/24]
+      addresses: [192.168.4.202/24]
       nameservers:
         addresses: [1.1.1.1,8.8.8.8,192.168.4.1]
       routes:

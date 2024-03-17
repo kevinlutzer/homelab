@@ -11,7 +11,8 @@ metadata:
 data:
   config.yaml: |
     # Name of the tunnel you want to run
-    tunnel: personalwebsite
+    tunnel: 40d92fe0-3b76-4f08-89ae-293693314512
+    # tunnel: personalwebsite
     credentials-file: /etc/cloudflared/creds/credentials.json
     # Serves the metrics server under /metrics and the readiness server under /ready
     metrics: 0.0.0.0:2000
@@ -28,10 +29,12 @@ data:
     # E.g. `cloudflared tunnel route dns example-tunnel tunnel.example.com`.
     ingress:
     # The first rule proxies traffic to the httpbin sample Service defined in app.yaml
-    - hostname: kevinlutzer.ca
-      service: http://personal-website.personal-website.svc.cluster.local:8080
-    - hostname: kevin.lutzer.ca
-      service: http://personal-website.personal-website.svc.cluster.local:8080
+    - hostname: testservice.kevinlutzer.ca
+      service: http://ipfinder.ipfinder.svc.cluster.local:80
+    # - hostname: kevinlutzer.ca
+    #   service: http://personal-website.personal-website.svc.cluster.local:8080
+    # - hostname: kevin.lutzer.ca
+    #   service: http://personal-website.personal-website.svc.cluster.local:8080
     # This rule sends traffic to the built-in hello-world HTTP server. This can help debug connectivity
     # issues. If hello.example.com resolves and tunnel.example.com does not, then the problem is
     # in the connection from cloudflared to your local service, not from the internet to cloudflared.

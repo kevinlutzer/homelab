@@ -12,8 +12,6 @@ spec:
       labels:
         app: personal-website
     spec:
-      imagePullSecrets:
-      - name: my-registry-secret
       containers:
       - name: personal-website
         imagePullPolicy: Always
@@ -26,10 +24,17 @@ spec:
         - containerPort: 8080
           name: http
         env:
-        - name: PORT
-          value: '8080'
+        # DBHost = os.Getenv("DB_HOST")
+        # DBName = os.Getenv("DB_NAME")
+        # DBPassword = os.Getenv("DB_PASSWORD")
+        # DBUser = os.Getenv("DB_USER")
+        # DBPort = os.Getenv("DB_PORT")
+        # DBSSLMode = os.Getenv("DB_SSL_MODE")
+
+        # // Server Setup
+        # Env = os.Getenv("ENV")
         - name: DB_HOST
-          value: '192.168.4.157'
+          value: 'postgres-service.postgres.svc.cluster.local'
         - name: DB_NAME
           value: 'personalwebsite'
         - name: DB_PASSWORD
@@ -39,10 +44,20 @@ spec:
               name: personal-website-secret
         - name: DB_USER
           value: 'personalwebsite'
-        - name: PING_HOST
-          valueFrom:
-            secretKeyRef:
-              key: pinguri
-              name: personal-website-secret
+        - name: DB_PORT
+          value: '5432'
+        - name: DB_SSL_MODE
+          value: 'verify-ca'
+        - name: PORT
+          value: '8080'
+        - name: STATIC_DIR
+          value: '/app/public'
+        - name: ENV
+          value: 'local'
+        # - name: PING_HOST
+        #   valueFrom:
+        #     secretKeyRef:
+        #       key: pinguri
+        #       name: personal-website-secret
         - name: VERSION
           value: '4.0.1'

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ipfinder
+  name: ipfinder
+  labels:
+    app: ipfinder
+spec:
+  selector:
+    matchLabels:
+      app: ipfinder
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ipfinder
+    spec:
+      containers:
+      - name: ipfinder
+        env:
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              key: apikey
+              name: ipfinder-apikey
+        imagePullPolicy: Always
+        image: klutzer/ipfinder:latest
+        ports:
+        - containerPort: 80
+        # resources:
+        #   limits:
+        #     memory: 64Mi
+        #     cpu: 64Mi
+        #   requests:
+        #     memory: 64Mi
+        #     cpu: 64Mi
