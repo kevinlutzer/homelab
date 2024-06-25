@@ -1,0 +1,45 @@
+#!/bin/bash
+
+help() {
+    cat <<EOF 
+    
+    NMAP DIFF
+
+    Prints out the difference between two different nmap ip scan runs so you can see
+    any newly connected devices. This command will create temporary data in /tmp
+
+    Usage: 
+
+    $0 <gateway with subnet>
+
+    Example: 
+    
+    $0 192.168.4.1/24 
+
+    Arguments:
+
+    -h, --help Print out this help message
+
+EOF
+}
+
+# check for help command being specified
+if [["$1" == "--help"] || ["$1" == "-h"]]; then 
+    help
+    exit 0
+fi
+
+# verify that the ip with subnet is specified
+if [[ $1 == "" ]]; then
+    echo "Gateway with subnet needs to be specified. See --help for examples"
+    exit 1
+fi
+
+# Perform the actual command if help isn't specified
+
+first=$(openssl rand -hex    12).txt
+second=$(openssl rand -hex 12).txt
+
+nmap -sP $1 > $first
+nmap -sP $2 > $second
+# wait for stdin
