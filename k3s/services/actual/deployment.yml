@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: actual
+  name: actual
+  labels:
+    app: actual
+spec:
+  selector:
+    matchLabels:
+      app: actual
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: actual
+    spec:
+      containers:
+      - name: actual
+        imagePullPolicy: IfNotPresent
+        image: actualbudget/actual-server:latest
+        volumeMounts:
+          - name: actual-local-data-volume
+            mountPath: "/data"
+        ports:
+        - containerPort: 5006
+        resources:
+          limits:
+            memory: 2048Mi
+            cpu: "2048"
+          requests:
+            memory: 1024Mi
+            cpu: "1024m"
+      volumes:
+        - name: actual-local-data-volume
+          persistentVolumeClaim:
+            claimName: actual-local-data-pvc
