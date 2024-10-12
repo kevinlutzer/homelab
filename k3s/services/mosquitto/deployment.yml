@@ -24,15 +24,10 @@ spec:
               name: mqtt
               protocol: TCP
           volumeMounts:
-            - name: mosquitto-persistent-storage
-              mountPath: /mosquitto/data
             - name: mosquitto-config
               mountPath: /mosquitto/config/mosquitto.conf
               subPath: mosquitto.conf
       volumes:
-        - name: mosquitto-persistent-storage
-          persistentVolumeClaim:
-            claimName: mosquitto-local-data-pvc
         - name: mosquitto-config
           configMap:
             name: mosquitto-config

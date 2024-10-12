@@ -42,16 +42,16 @@ spec:
             - configMapRef:
                 name: postgres-config # Using the ConfigMap postgres-secret
           volumeMounts:
-            # - mountPath: /var/lib/postgresql/data
-            #   name: postgresdata
-              # subPath: postgresdata
+            - mountPath: /var/lib/postgresql/data
+              name: postgresdata
+              subPath: postgresdata
             - mountPath: /etc/ssl
               name: postgresssl
       volumes:
-        # - name: postgresdata
-        #   emptyDir: {}
-        #   persistentVolumeClaim:
-        #     claimName: postgres-local-data-pvc3
+        - name: postgresdata
+          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: postgres-local-data-pvc3
         - name: postgresssl
           secret:
             secretName: postgres-kevinlutzer-ca-tls

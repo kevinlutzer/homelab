@@ -5,6 +5,10 @@
 		}
 	],
 	"settings": {
+		"cSpell.words": [
+			"wifis",
+			"ethernets"
+		],
 		"[ansible]": {
 			"editor.detectIndentation": true,
 			"editor.insertSpaces": true,
