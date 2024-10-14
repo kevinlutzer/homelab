@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: postgres-kevinlutzer-ca-tls
+  name: postgres-kevin-lutzer-ca-tls
   namespace: postgres
 spec:
   duration: 2160h # 90d
@@ -15,7 +15,7 @@ spec:
     size: 2048
   ipAddresses:
     - 192.168.4.157
-  secretName: postgres-kevinlutzer-ca-tls
+  secretName: postgres-kevin-lutzer-ca-tls
   issuerRef:
     name: my-ca-issuer
     kind: Issuer

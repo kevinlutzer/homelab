@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: postgres-local-data-pvc3
+  name: postgres-local-data-pvc7
   namespace: postgres
 spec:
   accessModes:

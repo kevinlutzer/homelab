@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: n8n-local-data-pvc
+  name: n8n-local-data-pvc-11
   namespace: n8n
 spec:
   accessModes:

@@ -45,13 +45,13 @@ This is needed for the Longhorn manager. Any node that you want to have persiste
 1. Wipe the SSD disk by running `ansible <HOST IP OR GROUP> -b -m shell -a "wipefs -a /dev/{{ var_disk }}"`
 1. Format SSD as an `ext4` partition with `ansible <HOST IP OR GROUP> -b -m filesystem -a "fstype=ext4 dev=/dev/{{ var_disk }}"` 
 1. Get the block id of the partition with `ansible <HOST IP OR GROUP> -b -m shell -a "blkid -s UUID -o value /dev/{{ var_disk }}"`, add that id to the host.ini file as the variable `var_blkid`
-1. Mount the block with `ansible <HOST IP OR GROUP> -m ansible.posix.mount -a "path=/var/lib/longhorn src=UUID={{ var_blkid }} fstype=ext4 state=mounted" -b`
+1. Mount the block with `ansible <HOST IP OR GROUP> -m ansible.posix.mount -a "path=/storage01 src=UUID={{ var_blkid }} fstype=ext4 state=mounted" -b`
 
 Once the node has come online, The longhorn controller should pick this up and setup the needed containers for that node. 
 
 ## Setup k3s
 
-1. To setup a master node run the `k3s/playbookssetupmaster.yml` playbook. To create a worker node, run the `k3s/playbookssetupnodes.yml`. Note that for this playbook you will need to specify the server token from the master node. This can be fetched by running `ssh node@<MASTER IP> "sudo cat /var/lib/rancher/k3s/server/node-token"`
+1. To setup a master node run the `k3s/playbookssetupmaster.yml` playbook. To create a worker node, run the `k3s/playbookssetupnodes.yml`. Note that for this playbook you will need to specify the server token from the master node. This can be fetched by running `ssh root@<MASTER IP> "cat /var/lib/rancher/k3s/server/node-token"`
 1. Copy the kubectl config file from the k3s master to your working machine: `scp root@<MASTER_IP>:/etc/rancher/k3s/k3s.yaml ~/.kube/config`. 
 1. Modify `~/.kube/config` to specify the raspberry pi master ip as the server ip
 
@@ -96,7 +96,7 @@ network:
   ethernets:
     eno1:
       dhcp4: true
-      addresses: [192.168.4.202/24]
+      addresses: [192.168.4.200/24]
       nameservers:
         addresses: [1.1.1.1,8.8.8.8,192.168.4.1]
       routes:
