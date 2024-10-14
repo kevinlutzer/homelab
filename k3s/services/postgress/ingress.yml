@@ -7,10 +7,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - postgres.homelab.kevinlutzer.ca
+    - postgres.homelab.kevin.lutzer.ca
     secretName: postgres-kevinlutzer-ca-tls
   rules:
-  - host: postgres.homelab.kevinlutzer.ca
+  - host: postgres.homelab.kevin.lutzer.ca
     http:
       paths:
         - path: /

@@ -7,10 +7,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - grafana.homelab.kevinlutzer.ca
+    - grafana.homelab.kevin.lutzer.ca
     secretName: grafana-kevinlutzer-ca-tls
   rules:
-  - host: grafana.homelab.kevinlutzer.ca
+  - host: grafana.homelab.kevin.lutzer.ca
     http:
       paths:
         - path: /

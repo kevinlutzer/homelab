@@ -6,6 +6,6 @@ metadata:
   namespace: ntfy
 data:
   server.yml: |
-    base-url: "https://ntfy.homelab.kevinlutzer.ca"
+    base-url: "https://ntfy.homelab.kevin.lutzer.ca"
     upstream-base-url: "https://ntfy.sh"
     log-level: debug

@@ -14,7 +14,7 @@ spec:
     encoding: PKCS1
     size: 2048
   dnsNames:
-    - hello-world.homelab.kevinlutzer.ca
+    - hello-world.homelab.kevin.lutzer.ca
   secretName: helloworld-kevinlutzer-ca-tls
   issuerRef:
     name: ca-issuer

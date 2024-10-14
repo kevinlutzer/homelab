@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: ntfy-homelab-kevinlutzer-ca-tls
+  name: ntfy-homelab-kevin-lutzer-ca-tls
   namespace: ntfy
 spec:
   duration: 2160h # 90d
@@ -14,8 +14,8 @@ spec:
     encoding: PKCS1
     size: 2048
   dnsNames:
-    - ntfy.homelab.kevinlutzer.ca
-  secretName: ntfy-homelab-kevinlutzer-ca-tls
+    - ntfy.homelab.kevin.lutzer.ca
+  secretName: ntfy-homelab-kevin-lutzer-ca-tls
   issuerRef:
     name: ca-issuer
     kind: Issuer

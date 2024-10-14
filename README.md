@@ -45,7 +45,7 @@ This is needed for the Longhorn manager. Any node that you want to have persiste
 1. Wipe the SSD disk by running `ansible <HOST IP OR GROUP> -b -m shell -a "wipefs -a /dev/{{ var_disk }}"`
 1. Format SSD as an `ext4` partition with `ansible <HOST IP OR GROUP> -b -m filesystem -a "fstype=ext4 dev=/dev/{{ var_disk }}"` 
 1. Get the block id of the partition with `ansible <HOST IP OR GROUP> -b -m shell -a "blkid -s UUID -o value /dev/{{ var_disk }}"`, add that id to the host.ini file as the variable `var_blkid`
-1. Mount the block with `ansible <HOST IP OR GROUP> -m ansible.posix.mount -a "path=/storage01 src=UUID={{ var_blkid }} fstype=ext4 state=mounted" -b`
+1. Mount the block with `ansible <HOST IP OR GROUP> -m ansible.posix.mount -a "path=/var/lib/longhorn src=UUID={{ var_blkid }} fstype=ext4 state=mounted" -b`
 
 Once the node has come online, The longhorn controller should pick this up and setup the needed containers for that node. 
 

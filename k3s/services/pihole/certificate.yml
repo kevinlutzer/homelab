@@ -14,7 +14,7 @@ spec:
     encoding: PKCS1
     size: 2048
   dnsNames:
-    - pihole.homelab.kevinlutzer.ca
+    - pihole.homelab.kevin.lutzer.ca
   secretName: pihole-kevinlutzer-ca-tls
   issuerRef:
     name: ca-issuer

@@ -23,7 +23,7 @@ spec:
         image: docker.n8n.io/n8nio/n8n:latest
         env:
           - name: N8N_HOST
-            value: n8n.homelab.kevinlutzer.ca
+            value: n8n.homelab.kevin.lutzer.ca
           - name: N8N_PORT
             value: "5678"
           - name: N8N_PROTOCOL
@@ -31,7 +31,7 @@ spec:
           - name: NODE_ENV
             value: production
           - name: WEBHOOK_URL
-            value: https://n8n.homelab.kevinlutzer.ca/
+            value: https://n8n.homelab.kevin.lutzer.ca/
         volumeMounts:
           - name: n8n-local-data-volume
             mountPath: "/home/node/.n8n"

@@ -8,7 +8,7 @@ metadata:
   labels:
     app: planka
 data:
-  BASE_URL: https://planka.homelab.kevinlutzer.ca
+  BASE_URL: https://planka.homelab.kevin.lutzer.ca
   TRUST_PROXY: "0"
 
   # Can be removed after installation

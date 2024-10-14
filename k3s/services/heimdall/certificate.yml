@@ -14,7 +14,7 @@ spec:
     encoding: PKCS1
     size: 2048
   dnsNames:
-    - heimdall.homelab.kevinlutzer.ca
+    - heimdall.homelab.kevin.lutzer.ca
   secretName: heimdall-kevinlutzer-ca-tls
   issuerRef:
     name: ca-issuer

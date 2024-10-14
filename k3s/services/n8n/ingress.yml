@@ -7,10 +7,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - n8n.homelab.kevinlutzer.ca
-    secretName: n8n-homelab-kevinlutzer-ca-tls
+    - n8n.homelab.kevin.lutzer.ca
+    secretName: n8n-homelab-kevin-lutzer-ca-tls
   rules:
-  - host: n8n.homelab.kevinlutzer.ca
+  - host: n8n.homelab.kevin.lutzer.ca
     http:
       paths:
         - path: /

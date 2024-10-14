@@ -7,10 +7,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - heimdall.homelab.kevinlutzer.ca
+    - heimdall.homelab.kevin.lutzer.ca
     secretName: heimdall-kevinlutzer-ca-tls
   rules:
-  - host: heimdall.homelab.kevinlutzer.ca
+  - host: heimdall.homelab.kevin.lutzer.ca
     http:
       paths:
         - path: /

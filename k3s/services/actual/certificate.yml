@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: actual-homelab-kevinlutzer-ca-tls
+  name: actual-homelab-kevin-lutzer-ca-tls
   namespace: actual
 spec:
   duration: 2160h # 90d
@@ -14,8 +14,8 @@ spec:
     encoding: PKCS1
     size: 2048
   dnsNames:
-    - actual.homelab.kevinlutzer.ca
-  secretName: actual-homelab-kevinlutzer-ca-tls
+    - actual.homelab.kevin.lutzer.ca
+  secretName: actual-homelab-kevin-lutzer-ca-tls
   issuerRef:
     name: ca-issuer
     kind: Issuer

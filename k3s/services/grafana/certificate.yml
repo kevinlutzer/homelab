@@ -14,7 +14,7 @@ spec:
     encoding: PKCS1
     size: 2048
   dnsNames:
-    - grafana.homelab.kevinlutzer.ca
+    - grafana.homelab.kevin.lutzer.ca
   secretName: grafana-kevinlutzer-ca-tls
   issuerRef:
     name: ca-issuer

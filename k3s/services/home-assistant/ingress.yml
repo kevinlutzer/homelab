@@ -7,10 +7,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - home-assistant.homelab.kevinlutzer.ca
-    secretName: home-assistant-homelab-kevinlutzer-ca-tls
+    - home-assistant.homelab.kevin.lutzer.ca
+    secretName: home-assistant-homelab-kevin-lutzer-ca-tls
   rules:
-  - host: home-assistant.homelab.kevinlutzer.ca
+  - host: home-assistant.homelab.kevin.lutzer.ca
     http:
       paths:
         - path: /

@@ -9,10 +9,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - prometheus.homelab.kevinlutzer.ca
-    secretName: prometheus-homelab-kevinlutzer-ca-tls
+    - prometheus.homelab.kevin.lutzer.ca
+    secretName: prometheus-homelab-kevin-lutzer-ca-tls
   rules:
-  - host: prometheus.homelab.kevinlutzer.ca
+  - host: prometheus.homelab.kevin.lutzer.ca
     http:
       paths:
         - path: /

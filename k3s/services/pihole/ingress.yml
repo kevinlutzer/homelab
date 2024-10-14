@@ -7,10 +7,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - pihole.homelab.kevinlutzer.ca
+    - pihole.homelab.kevin.lutzer.ca
     secretName: pihole-kevinlutzer-ca-tls
   rules:
-  - host: pihole.homelab.kevinlutzer.ca
+  - host: pihole.homelab.kevin.lutzer.ca
     http:
       paths:
         - path: /

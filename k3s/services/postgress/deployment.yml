@@ -13,23 +13,21 @@ spec:
       labels:
         app: postgres
     spec:
-      securityContext:
-        # fsGroup: 70 #<--- change here
-        runAsUser: 70
+      # securityContext:
+      #   runAsUser: 70
       containers:
         - name: postgres
-          image: postgres:12-alpine
+          image: postgres:14-alpine
           imagePullPolicy: "IfNotPresent"
-
-          command: ["postgres"]
-          args: ["-cssl=on", "-cssl_cert_file=/etc/ssl/tls.crt", "-cssl_key_file=/etc/ssl/key.crt"]
+          # command: ["postgres"]
+          # args: ["-cssl=on", "-cssl_cert_file=/var/lib/postgresql/ssl/tls.crt", "-cssl_key_file=/var/lib/postgresql/ssl/key.crt"]
           resources:
             limits:
               memory: 4096Mi
-              cpu: "4096m"
+              cpu: 4096m
             requests:
               memory: 2048Mi
-              cpu: "2048m"
+              cpu: 2048m
           ports:
             - containerPort: 5432 # Exposing the container port 5432 for PostgreSQL client connections.
           env: 
@@ -45,13 +43,13 @@ spec:
             - mountPath: /var/lib/postgresql/data
               name: postgresdata
               subPath: postgresdata
-            - mountPath: /etc/ssl
-              name: postgresssl
+            # - mountPath: /var/lib/postgresql/ssl
+            #   name: postgresssl
+            #   subPath: postgresssl
       volumes:
         - name: postgresdata
-          emptyDir: {}
           persistentVolumeClaim:
             claimName: postgres-local-data-pvc3
-        - name: postgresssl
-          secret:
-            secretName: postgres-kevinlutzer-ca-tls
+        # - name: postgresssl
+        #   secret:
+        #     secretName: postgres-kevinlutzer-ca-tls

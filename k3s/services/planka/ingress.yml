@@ -7,10 +7,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - planka.homelab.kevinlutzer.ca
-    secretName: planka-homelab-kevinlutzer-ca-tls
+    - planka.homelab.kevin.lutzer.ca
+    secretName: planka-homelab-kevin-lutzer-ca-tls
   rules:
-  - host: planka.homelab.kevinlutzer.ca
+  - host: planka.homelab.kevin.lutzer.ca
     http:
       paths:
         - path: /

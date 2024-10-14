@@ -18,3 +18,8 @@
     - name: Rebooting
       ansible.builtin.reboot:
       changed_when: false
+
+    - name: Add longhorn system group
+      group:
+        name: longhorn
+        state: present
