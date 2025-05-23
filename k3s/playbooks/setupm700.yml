@@ -4,12 +4,12 @@
   tasks:
     - name: Upgrade the OS (apt-get dist-upgrade)
       ansible.builtin.apt:
-        upgrade: dist
+        # update: true
         update_cache: true
 
     - name: Install Packages
       ansible.builtin.apt:
-        name:
+        name:  
           - "nfs-common"
           - "open-iscsi"
           - "util-linux"

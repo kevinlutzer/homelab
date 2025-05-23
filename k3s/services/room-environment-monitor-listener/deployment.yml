@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment # Create a deployment
+metadata:
+  name: room-environment-monitor-listener # Set the name of the deployment
+  namespace: reml # Set the name of the deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: room-environment-monitor-listener
+  template:
+    metadata:
+      labels:
+        app: room-environment-monitor-listener
+    spec:
+      containers:
+        - name: room-environment-monitor-listener
+          image: kevinlutzer/room-environment-monitor-listener:latest
+          imagePullPolicy: "Always"
+          resources:
+            limits:
+              memory: 4096Mi
+              cpu: 4096m
+            requests:
+              memory: 2048Mi
+              cpu: 2048m
+          ports:
+            - containerPort: 8080 
+            - containerPort: 1883
+          env: 
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: database-url
+                  key: DATABASE_URL
+          envFrom:
+            - configMapRef:
+                name: room-environment-monitor-listener-config # Using the ConfigMap postgres-secret

@@ -1,0 +1,14 @@
+# Create ConfigMap postgres-secret for the postgres app
+# Define default database name, user, and password
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: room-environment-monitor-listener-config 
+  namespace: reml
+  labels:
+    app: room-environment-monitor-listener
+data:
+  MQTT_HOST: 192.168.4.159
+  HOST: 0.0.0.0
+  PORT: "8080"
+  MQTT_PORT: "1883"

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment # Create a deployment
 metadata:
   name: postgres # Set the name of the deployment
-  namespace: postgres # Set the name of the deployment
+  namespace: test-postgres # Set the name of the deployment
 spec:
   replicas: 1
   selector:
@@ -13,29 +13,12 @@ spec:
       labels:
         app: postgres
     spec:
-      securityContext:
-        runAsUser: 70
-        # fsGroup: 1000
       containers:
         - name: postgres
-          image: postgres:14-alpine
+          image: postgres:latest
           imagePullPolicy: "IfNotPresent"
-          # we have to make sure the ssl certs have the right permissions before we start the postgres server or else it 
-          # will give an error
-          # lifecycle:
-          #   postStart:
-          #     exec:
-          #       command:
-          #         - "chown -R postgres:root /var/lib/postgresql/ssl"
-          #         - "chmod u=rw /var/lib/postgresql/ssl/*"
-          command: 
-            - "postgres"  
-            # - "postgres -cssl=on -cssl_cert_file=/var/lib/postgresql/ssl/tls.crt -cssl_key_file=/var/lib/postgresql/ssl/tls.key"
           resources:
             limits:
-              memory: 4096Mi
-              cpu: 4096m
-            requests:
               memory: 2048Mi
               cpu: 2048m
           ports:
@@ -54,15 +37,7 @@ spec:
               name: postgresdata
               subPath: postgresdata
               readOnly: false
-            - mountPath: /var/lib/postgresql/ssl
-              name: postgresssl
-              readOnly: false
-
       volumes:
         - name: postgresdata
           persistentVolumeClaim:
-            claimName: postgres-local-data-pvc7
-        - name: postgresssl
-          secret:
-            defaultMode: 0640
-            secretName: postgres-kevin-lutzer-ca-tls
+            claimName: test-postgres-local-data-pvc
