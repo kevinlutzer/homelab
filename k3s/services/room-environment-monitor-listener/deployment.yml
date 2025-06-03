@@ -25,8 +25,12 @@ spec:
               memory: 2048Mi
               cpu: 2048m
           ports:
-            - containerPort: 8080 
+            - containerPort: 8080
+              name: http
+              protocol: TCP 
             - containerPort: 1883
+              name: mqtt
+              protocol: TCP
           env: 
             - name: DATABASE_URL
               valueFrom:
