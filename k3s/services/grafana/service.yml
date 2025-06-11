@@ -4,6 +4,7 @@ metadata:
   name: grafana 
   namespace: grafana
 spec:
+  type: LoadBalancer
   selector:
     app: grafana
   ports:
@@ -11,3 +12,4 @@ spec:
       port: 80
       protocol: TCP
       targetPort: 3000
+  loadBalancerIP: 192.168.4.156
